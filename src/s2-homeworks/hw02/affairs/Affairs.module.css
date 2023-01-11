@@ -2,6 +2,8 @@
     display: flex;
     gap: 24px;
     margin-bottom: 32px;
+    margin-left: 70px;
+    margin-top: 37px;
 }
 
 .all {
@@ -52,4 +54,6 @@
     gap: 17px;
     flex-wrap: wrap;
     max-width: 450px;
+    margin-left: 70px;
+    padding-bottom: 73px;
 }
