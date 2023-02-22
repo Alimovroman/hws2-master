@@ -18,7 +18,7 @@
     border: 1px solid #0066CC;
     color: #0066CC;
     background-color: white;
-    width: 176px;
+    width: 123px;
 }
 
 .default {
@@ -30,7 +30,7 @@
 }
 
 .default:hover {
-    width: 167px;
+    /*width: 167px;*/
     height: 30px;
     background: #0080FF;
 }
@@ -43,7 +43,7 @@
 
 .secondary:hover {
     background: #E5F0FA;
-    width: 167px;
+    /*width: 167px;*/
     height: 30px;
 }
 
