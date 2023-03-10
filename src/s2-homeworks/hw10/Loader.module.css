@@ -1,3 +1,7 @@
 .loader {
     /*свг и/или анимация*/
+    background: url('../../assets/images/preloader.svg') no-repeat;
+    width: 200px;
+    height: 200px;
+
 }
