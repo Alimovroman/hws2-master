@@ -9,8 +9,8 @@ import error500 from './images/500.svg'
 import errorUnknown from './images/error.svg'
 
 /*
-* 1 - дописать функцию send
-* 2 - дизэйблить кнопки пока идёт запрос
+* 1 - дописать функцию send - is done
+* 2 - дизэйблить кнопки пока идёт запрос - is done
 * 3 - сделать стили в соответствии с дизайном
 * */
 
@@ -20,7 +20,10 @@ const HW13 = () => {
     const [info, setInfo] = useState('')
     const [image, setImage] = useState('')
 
+    const [isDisabled, setIsDisabled] = useState(false)
+
     const send = (x?: boolean | null) => () => {
+        setIsDisabled(true)
         const url =
             x === null
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
@@ -31,17 +34,47 @@ const HW13 = () => {
         setText('')
         setInfo('...loading')
 
+
+
         axios
             .post(url, {success: x})
             .then((res) => {
                 setCode('Код 200!')
                 setImage(success200)
+                setText(res.data.errorText)
+                setInfo(res.data.info)
                 // дописать
 
             })
             .catch((e) => {
+                switch (e.response.status) {
+                    case 400:
+                        setImage(error400)
+                        setCode('Ошибка 400!')
+                        setText(e.response.data.errorText)
+                        setInfo(e.response.data.info)
+                        break
+                    case 500:
+                        setImage(error500)
+                        setCode('Ошибка 500!')
+                        setText(e.response.data.errorText)
+                        setInfo(e.response.data.info)
+
+
+                        break
+                    case 0 :
+                        setImage(errorUnknown)
+                        setCode("Error")
+                        setText(e.message)
+                        setInfo(e.name)
+                        break
+                }
+
                 // дописать
 
+            })
+            .finally(() => {
+                setIsDisabled(false)
             })
     }
 
@@ -54,7 +87,8 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-true'}
                         onClick={send(true)}
-                        xType={'secondary'}
+                        xType={!isDisabled ? 'secondary' : 'disabled'}
+                        disabled={isDisabled}
                         // дописать
 
                     >
@@ -63,7 +97,8 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-false'}
                         onClick={send(false)}
-                        xType={'secondary'}
+                        xType={!isDisabled ? 'secondary' : 'disabled'}
+                        disabled={isDisabled}
                         // дописать
 
                     >
@@ -72,7 +107,8 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-undefined'}
                         onClick={send(undefined)}
-                        xType={'secondary'}
+                        xType={!isDisabled ? 'secondary' : 'disabled'}
+                        disabled={isDisabled}
                         // дописать
 
                     >
@@ -81,7 +117,8 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-null'}
                         onClick={send(null)} // имитация запроса на не корректный адрес
-                        xType={'secondary'}
+                        xType={!isDisabled ? 'secondary' : 'disabled'}
+                        disabled={isDisabled}
                         // дописать
 
                     >
